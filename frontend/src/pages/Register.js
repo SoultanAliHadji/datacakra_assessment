@@ -36,7 +36,7 @@ const Register = () => {
               Accept: "application/json, text/plain, /",
               "Content-Type": "multipart/form-data",
               Authorization:
-                "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGV0cmF2ZWwtYXBpLjAwMHdlYmhvc3RhcHAuY29tL2F1dGgvbG9naW4iLCJpYXQiOjE2OTIxMTkyNzgsImV4cCI6MTY5MjEyMjg3OCwibmJmIjoxNjkyMTE5Mjc4LCJqdGkiOiJRbzJoaTd4ZFd1aEp2b0hGIiwic3ViIjoiMiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3XXpHMS8io3kKmohH48YAVPbTwuboizkM4Vng3NcwPY",
+                "Bearer",
             },
           }
         )
