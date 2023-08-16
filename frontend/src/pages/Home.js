@@ -1,3 +1,4 @@
+import { Button } from "../components/Button";
 import { useDispatch } from "react-redux";
 import { moveTo } from "../redux/pageSlice";
 
@@ -5,31 +6,32 @@ const Home = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="container xl:px-20 mx-auto grid grid-flow-col items-center">
+    <div className="container px-6 md:px-0 xl:px-20 mx-auto grid grid-flow-col items-center">
       <div className="grid gap-20">
-        <div className="grid gap-1">
-          <h1 className="text-2xl font-medium text-[#e4892c]">
+        <div className="grid gap-1 text-center md:text-start">
+          <h1 className="text-3xl md:text-4xl font-medium text-[#e4892c]">
             Embark on unforgettable journeys,
           </h1>
-          <h2 className="text-lg font-medium">
+          <h2 className="text-lg md:text-2xl font-medium">
             where adventure meets convenience.
           </h2>
-          <h3 className="mt-5 w-3/4">
+          <h3 className="mt-5 md:w-3/4">
             We provide you Travel Destination references with rates from people
             around the world
           </h3>
         </div>
-        <button
-          className="w-max drop-shadow-md bg-[#e4892c] hover:bg-[#bf7324] text-white font-medium px-3 py-1 rounded"
-          onClick={() => {
-            dispatch(moveTo("destination"));
-            window.history.replaceState(null, null, "/destination");
-          }}
-        >
-          Discover More
-        </button>
+        <div className="flex justify-center md:justify-start">
+          <Button
+            title="Discover More"
+            moreStyles="bg-[#e4892c] text-white w-max"
+            onClick={() => {
+              dispatch(moveTo("destination"));
+              window.history.replaceState(null, null, "/destination");
+            }}
+          />
+        </div>
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end hidden md:block">
         <img
           className="w-4/5"
           src={require("../assets/Around The World.png")}

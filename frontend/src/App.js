@@ -13,6 +13,8 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/home" element={<Main />} />
         <Route path="/destination" element={<Main />} />
+        <Route path="/dashboard" element={<Main />} />
+        <Route path="/account-profile" element={<Main />} />
       </Routes>
     </BrowserRouter>
   );

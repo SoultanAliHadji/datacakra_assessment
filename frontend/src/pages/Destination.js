@@ -3,6 +3,7 @@ import axios from "axios";
 
 const Destination = () => {
   const [destinationData, setDestinationData] = useState([]);
+  const [destinationId, setDestinationId] = useState();
 
   useEffect(() => {
     axios
@@ -21,18 +22,18 @@ const Destination = () => {
 
   const destinationArr = destinationData.map((item) => {
     return (
-      <div>
+      <button className="border rounded-lg bg-white shadow-md p-5 grid gap-2 h-max" key={item.id}>
         <img className="w-full aspect-square" src={item.thumbnail} alt="" />
         <h6 className="text-center font-medium">{item.title}</h6>
         <div className="text-justify">
           <label>{item.description}</label>
         </div>
-      </div>
+      </button>
     );
   });
 
   return (
-    <div className="container xl:px-20 mx-auto my-7">
+    <div className="container px-6 md:px-0 xl:px-20 mx-auto my-7">
       <h1 className="text-center text-xl font-semibold mb-14 underline">
         All Destination
       </h1>

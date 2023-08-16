@@ -1,5 +1,6 @@
 import "../App.css";
-import { useEffect, useState } from "react";
+import { Button } from "../components/Button";
+import { useState } from "react";
 import axios from "axios";
 
 const Login = () => {
@@ -16,7 +17,7 @@ const Login = () => {
       axios
         .get("https://exampletravelapi.datacakra.com/sanctum/csrf-cookie")
         .then((res) => {
-          console.log(res)
+          console.log(res);
           axios
             .post(
               "https://exampletravelapi.datacakra.com/api/login",
@@ -33,11 +34,13 @@ const Login = () => {
             )
             .then((res) => {
               localStorage.setItem("token", res.data.token);
+              localStorage.setItem("is-login", true);
               window.location.href = "/";
             })
             .catch((err) => {
               console.log(err);
               setMessage("*email/password salah!");
+              localStorage.setItem("is-login", true);
             });
         });
     }
@@ -45,9 +48,9 @@ const Login = () => {
 
   return (
     <div className="font-roboto w-screen h-screen flex justify-center items-center">
-      <div className="w-4/5 sm:w-2/4 md:2/5 lg:w-1/3 p-5 border">
-        <div className="grid gap-7">
-          <h1 className="text-3xl font-medium">Login</h1>
+      <div className="w-4/5 sm:w-2/4 md:2/5 lg:w-1/3 p-5 border rounded-xl shadow-xl">
+        <div className="grid gap-8">
+          <h1 className="text-3xl text-[#e4892c] font-medium">Login</h1>
           <div className="">
             <label className="text-lg font-medium">Welcome back,</label>
             <br />
@@ -83,14 +86,17 @@ const Login = () => {
               />
             </div>
           </div>
-          <button
-            className="drop-shadow-md bg-[#e4892c] hover:bg-[#bf7324] text-white font-medium p-1 rounded"
-            onClick={HandleLogin}
-          >
-            Login
-          </button>
+          <Button moreStyles="bg-[#e4892c] text-white" title="Login" onClick={HandleLogin} />
         </div>
-        <label className="text-red-600 text-sm">{message}</label>
+        <div className="mt-1">
+          <label className="text-red-600 text-sm">{message}</label>
+        </div>
+        <div className="text-sm flex justify-center mt-3 gap-1">
+          <label>Don't have an account yet?</label>
+          <a className="text-[#e4892c] hover:text-[#bf7324]" href="/register">
+            Register
+          </a>
+        </div>
       </div>
     </div>
   );

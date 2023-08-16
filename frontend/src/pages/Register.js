@@ -1,4 +1,5 @@
 import "../App.css";
+import { Button } from "../components/Button";
 import { useState } from "react";
 import axios from "axios";
 
@@ -55,9 +56,9 @@ const Register = () => {
 
   return (
     <div className="font-roboto w-screen h-screen flex justify-center items-center">
-      <div className="w-4/5 sm:w-2/4 md:2/5 lg:w-1/3 p-5 border">
-        <div className="grid gap-7">
-          <h1 className="text-3xl font-medium">Register</h1>
+      <div className="w-4/5 sm:w-2/4 md:2/5 lg:w-1/3 p-5 border rounded-xl shadow-xl">
+        <div className="grid gap-8">
+          <h1 className="text-3xl text-[#e4892c] font-medium">Register</h1>
           <div className="grid gap-4">
             <div className="grid gap-1">
               <label htmlFor="name">Name</label>
@@ -118,14 +119,21 @@ const Register = () => {
               />
             </div>
           </div>
-          <button
-            className="drop-shadow-md bg-[#e4892c] hover:bg-[#bf7324] text-white font-medium p-1 rounded"
+          <Button
+            moreStyles="bg-[#e4892c] text-white"
+            title="Register"
             onClick={HandleRegister}
-          >
-            Login
-          </button>
+          />
         </div>
-        <label className="text-red-600 text-sm">{message}</label>
+        <div className="mt-1">
+          <label className="text-red-600 text-sm">{message}</label>
+        </div>
+        <div className="text-sm flex justify-center mt-3 gap-1">
+          <label>Already have an account?</label>
+          <a className="text-[#e4892c] hover:text-[#bf7324]" href="/login">
+            Login
+          </a>
+        </div>
       </div>
     </div>
   );
