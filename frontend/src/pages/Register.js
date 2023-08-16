@@ -24,7 +24,7 @@ const Register = () => {
     } else {
       axios
         .post(
-          "https://exampletravel-api.000webhostapp.com/auth/register",
+          "https://exampletravelapi.datacakra.com/api/register",
           {
             name: name,
             email: email,
@@ -36,7 +36,7 @@ const Register = () => {
               Accept: "application/json, text/plain, /",
               "Content-Type": "multipart/form-data",
               Authorization:
-                "Bearer",
+                "Bearer" + " 10|Qj3reAxIjI2CGNnmvoX5xovhHJTS495u9CfKGjiu",
             },
           }
         )
@@ -54,18 +54,18 @@ const Register = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="font-roboto w-screen h-screen flex justify-center items-center">
       <div className="w-4/5 sm:w-2/4 md:2/5 lg:w-1/3 p-5 border">
         <div className="grid gap-7">
-          <h1 className="text-3xl font-semibold">Register</h1>
+          <h1 className="text-3xl font-medium">Register</h1>
           <div className="grid gap-4">
             <div className="grid gap-1">
-              <label htmlFor="name">Nama</label>
+              <label htmlFor="name">Name</label>
               <input
                 className="border-2 border-gray-200 enabled:hover:border-gray-300 disabled:opacity-75 px-2 rounded"
                 id="name"
                 type="text"
-                placeholder="nama lengkap"
+                placeholder="full name"
                 value={name}
                 onChange={(value) => setName(value.target.value)}
                 onKeyDown={(key) => {
@@ -102,12 +102,12 @@ const Register = () => {
               />
             </div>
             <div className="grid gap-1">
-              <label htmlFor="password-confirmation">Ulangi Password</label>
+              <label htmlFor="password-confirmation">Retype Password</label>
               <input
                 className="border-2 border-gray-200 enabled:hover:border-gray-300 disabled:opacity-75 px-2 rounded"
                 id="password-confirmation"
                 type="password"
-                placeholder="ulangi password"
+                placeholder="retype password"
                 value={passwordConfirmation}
                 onChange={(value) =>
                   setPasswordConfirmation(value.target.value)
@@ -119,7 +119,7 @@ const Register = () => {
             </div>
           </div>
           <button
-            className="bg-[#e4892c] hover:bg-[#bf7324] text-white font-medium p-1 rounded"
+            className="drop-shadow-md bg-[#e4892c] hover:bg-[#bf7324] text-white font-medium p-1 rounded"
             onClick={HandleRegister}
           >
             Login

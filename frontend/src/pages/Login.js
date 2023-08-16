@@ -1,5 +1,5 @@
 import "../App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Login = () => {
@@ -14,35 +14,40 @@ const Login = () => {
       setMessage("*semua form tidak boleh kosong!");
     } else {
       axios
-        .post(
-          "https://exampletravel-api.000webhostapp.com/auth/login",
-          {
-            email: email,
-            password: password,
-          },
-          {
-            headers: {
-              Accept: "application/json, text/plain, /",
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
+        .get("https://exampletravelapi.datacakra.com/sanctum/csrf-cookie")
         .then((res) => {
-          localStorage.setItem("token", res.data.access_token);
-          window.location.href = "/";
-        })
-        .catch((err) => {
-          console.log(err);
-          setMessage("*email/password salah!");
+          console.log(res)
+          axios
+            .post(
+              "https://exampletravelapi.datacakra.com/api/login",
+              {
+                email: email,
+                password: password,
+              },
+              {
+                headers: {
+                  Accept: "application/json, text/plain, /",
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            )
+            .then((res) => {
+              localStorage.setItem("token", res.data.token);
+              window.location.href = "/";
+            })
+            .catch((err) => {
+              console.log(err);
+              setMessage("*email/password salah!");
+            });
         });
     }
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="font-roboto w-screen h-screen flex justify-center items-center">
       <div className="w-4/5 sm:w-2/4 md:2/5 lg:w-1/3 p-5 border">
         <div className="grid gap-7">
-          <h1 className="text-3xl font-semibold">Login</h1>
+          <h1 className="text-3xl font-medium">Login</h1>
           <div className="">
             <label className="text-lg font-medium">Welcome back,</label>
             <br />
@@ -79,7 +84,7 @@ const Login = () => {
             </div>
           </div>
           <button
-            className="bg-[#e4892c] hover:bg-[#bf7324] text-white font-medium p-1 rounded"
+            className="drop-shadow-md bg-[#e4892c] hover:bg-[#bf7324] text-white font-medium p-1 rounded"
             onClick={HandleLogin}
           >
             Login
