@@ -19,7 +19,8 @@ const Login = () => {
     } else {
       login.map((item) => {
         if (item.email === email && item.password === password) {
-          localStorage.setItem("username", item.name);
+          localStorage.setItem("name", item.name);
+          localStorage.setItem("email", item.email);
           localStorage.setItem("role", item.role);
           localStorage.setItem("is-login", true);
           dispatch(moveTo("home"));

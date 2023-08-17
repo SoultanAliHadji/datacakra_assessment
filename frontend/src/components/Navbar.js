@@ -81,7 +81,6 @@ const Navbar = () => {
             ) : (
               ""
             )}
-
             {localStorage.getItem("is-login") === "true" ? (
               <li
                 onMouseEnter={() => {
@@ -107,7 +106,7 @@ const Navbar = () => {
                 >
                   <div className="grid border-2 bg-slate-50 pt-1 rounded-b-md">
                     <button className="text-lg px-4 py-1 cursor-default pointer-event-none">
-                      {localStorage.getItem("username")}
+                      {localStorage.getItem("name")}
                     </button>
                     <hr />
                     <button
@@ -130,7 +129,8 @@ const Navbar = () => {
                     <button
                       className="px-2 py-1 hover:bg-red-600 hover:text-white text-start flex items-center gap-2"
                       onClick={() => {
-                        localStorage.removeItem("username");
+                        localStorage.removeItem("name");
+                        localStorage.removeItem("email");
                         localStorage.removeItem("role");
                         localStorage.setItem("is-login", false);
                         dispatch(moveTo("login"));
