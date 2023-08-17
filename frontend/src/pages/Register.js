@@ -2,6 +2,9 @@ import "../App.css";
 import { Button } from "../components/Button";
 import { useState } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { addUser } from "../redux/userSlice";
+import { moveTo } from "../redux/pageSlice";
 
 const Register = () => {
   const [name, setName] = useState();
@@ -9,10 +12,11 @@ const Register = () => {
   const [password, setPassword] = useState();
   const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [message, setMessage] = useState();
+  const users = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const HandleRegister = () => {
     setMessage();
-
     if (
       name === undefined ||
       email === undefined ||
@@ -23,36 +27,63 @@ const Register = () => {
     } else if (password !== passwordConfirmation) {
       setMessage("*password tidak sesuai!");
     } else {
-      axios
-        .post(
-          "https://exampletravelapi.datacakra.com/api/register",
-          {
-            name: name,
-            email: email,
-            password: password,
-            password_confirmation: passwordConfirmation,
-          },
-          {
-            headers: {
-              Accept: "application/json, text/plain, /",
-              "Content-Type": "multipart/form-data",
-              Authorization:
-                "Bearer" + " 10|Qj3reAxIjI2CGNnmvoX5xovhHJTS495u9CfKGjiu",
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          window.location.href = "/login";
+      dispatch(
+        addUser({
+          id: users.length + 1,
+          name: name,
+          email: email,
+          password: password,
+          role: "user",
+          token: name + "-token",
         })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          setMessage();
-        });
+      );
+      dispatch(moveTo("login"));
+      window.history.replaceState(null, null, "/login");
     }
   };
+
+  // const HandleRegister = () => {
+  //   setMessage();
+  //   if (
+  //     name === undefined ||
+  //     email === undefined ||
+  //     password === undefined ||
+  //     passwordConfirmation === undefined
+  //   ) {
+  //     setMessage("*semua form tidak boleh kosong!");
+  //   } else if (password !== passwordConfirmation) {
+  //     setMessage("*password tidak sesuai!");
+  //   } else {
+  //     axios
+  //       .post(
+  //         "https://exampletravelapi.datacakra.com/api/register",
+  //         {
+  //           name: name,
+  //           email: email,
+  //           password: password,
+  //           password_confirmation: passwordConfirmation,
+  //         },
+  //         {
+  //           headers: {
+  //             Accept: "application/json, text/plain, /",
+  //             "Content-Type": "multipart/form-data",
+  //             Authorization:
+  //               "Bearer" + " 10|Qj3reAxIjI2CGNnmvoX5xovhHJTS495u9CfKGjiu",
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         console.log(res);
+  //         window.location.href = "/login";
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       })
+  //       .finally(() => {
+  //         setMessage();
+  //       });
+  //   }
+  // };
 
   return (
     <div className="font-roboto w-screen h-screen flex justify-center items-center">
@@ -130,9 +161,15 @@ const Register = () => {
         </div>
         <div className="text-sm flex justify-center mt-3 gap-1">
           <label>Already have an account?</label>
-          <a className="text-[#e4892c] hover:text-[#bf7324]" href="/login">
+          <span
+            className="text-[#e4892c] hover:text-[#bf7324] cursor-pointer"
+            onClick={() => {
+              dispatch(moveTo("login"));
+              window.history.replaceState(null, null, "/login");
+            }}
+          >
             Login
-          </a>
+          </span>
         </div>
       </div>
     </div>

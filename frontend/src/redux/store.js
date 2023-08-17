@@ -1,6 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
-import pageReducer from './pageSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./userSlice";
+import pageReducer from "./pageSlice";
+import destinationReducer from "./destinationSlice";
 
 export default configureStore({
-  reducer: {page: pageReducer}
-})
+  reducer: {
+    page: pageReducer,
+    user: userReducer,
+    destination: destinationReducer,
+  },
+});

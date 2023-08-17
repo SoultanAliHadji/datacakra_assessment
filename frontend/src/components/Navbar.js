@@ -62,21 +62,26 @@ const Navbar = () => {
             >
               Destination
             </li>
-            <li
-              className={
-                "cursor-pointer hover:text-[#e4892c] text-center md:text-start" +
-                (currentPage === "dashboard"
-                  ? " text-[#e4892c] font-medium pointer-events-none"
-                  : "")
-              }
-              onClick={() => {
-                dispatch(moveTo("dashboard"));
-                window.history.replaceState(null, null, "/dashboard");
-                setShowNav(false);
-              }}
-            >
-              Dashboard
-            </li>
+            {localStorage.getItem("role") === "superadmin" ? (
+              <li
+                className={
+                  "cursor-pointer hover:text-[#e4892c] text-center md:text-start" +
+                  (currentPage === "dashboard"
+                    ? " text-[#e4892c] font-medium pointer-events-none"
+                    : "")
+                }
+                onClick={() => {
+                  dispatch(moveTo("dashboard"));
+                  window.history.replaceState(null, null, "/dashboard");
+                  setShowNav(false);
+                }}
+              >
+                Dashboard
+              </li>
+            ) : (
+              ""
+            )}
+
             {localStorage.getItem("is-login") === "true" ? (
               <li
                 onMouseEnter={() => {
@@ -101,8 +106,8 @@ const Navbar = () => {
                   }
                 >
                   <div className="grid border-2 bg-slate-50 pt-1 rounded-b-md">
-                    <button className="text-xl px-4 py-2 cursor-default pointer-event-none">
-                      {localStorage.getItem("user")}
+                    <button className="text-lg px-4 py-1 cursor-default pointer-event-none">
+                      {localStorage.getItem("username")}
                     </button>
                     <hr />
                     <button
@@ -125,7 +130,11 @@ const Navbar = () => {
                     <button
                       className="px-2 py-1 hover:bg-red-600 hover:text-white text-start flex items-center gap-2"
                       onClick={() => {
+                        localStorage.removeItem("username");
+                        localStorage.removeItem("role");
                         localStorage.setItem("is-login", false);
+                        dispatch(moveTo("login"));
+                        window.history.replaceState(null, null, "/login");
                         setAccountNav(false);
                         setShowNav(false);
                       }}
@@ -146,7 +155,8 @@ const Navbar = () => {
                   moreStyles="text-[#e4892c] border-2 border-[#e4892c] hover:text-white hover:bg-[#e4892c]"
                   title="Login"
                   onClick={() => {
-                    window.location.href = "/login";
+                    dispatch(moveTo("login"));
+                    window.history.replaceState(null, null, "/login");
                   }}
                 />
               </li>

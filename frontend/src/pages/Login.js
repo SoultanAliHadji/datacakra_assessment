@@ -2,49 +2,70 @@ import "../App.css";
 import { Button } from "../components/Button";
 import { useState } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { moveTo } from "../redux/pageSlice";
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [message, setMessage] = useState();
+  const login = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const HandleLogin = () => {
     setMessage();
-
     if (email === undefined || password === undefined) {
       setMessage("*semua form tidak boleh kosong!");
     } else {
-      axios
-        .get("https://exampletravelapi.datacakra.com/sanctum/csrf-cookie")
-        .then((res) => {
-          console.log(res);
-          axios
-            .post(
-              "https://exampletravelapi.datacakra.com/api/login",
-              {
-                email: email,
-                password: password,
-              },
-              {
-                headers: {
-                  Accept: "application/json, text/plain, /",
-                  "Content-Type": "multipart/form-data",
-                },
-              }
-            )
-            .then((res) => {
-              localStorage.setItem("token", res.data.token);
-              localStorage.setItem("is-login", true);
-              window.location.href = "/";
-            })
-            .catch((err) => {
-              console.log(err);
-              setMessage("*email/password salah!");
-              localStorage.setItem("is-login", true);
-            });
-        });
+      login.map((item) => {
+        if (item.email === email && item.password === password) {
+          localStorage.setItem("username", item.name);
+          localStorage.setItem("role", item.role);
+          localStorage.setItem("is-login", true);
+          dispatch(moveTo("home"));
+        } else {
+          setMessage("*email/password salah!");
+        }
+      });
     }
   };
+
+  // const HandleLogin = () => {
+  //   setMessage();
+  //   if (email === undefined || password === undefined) {
+  //     setMessage("*semua form tidak boleh kosong!");
+  //   } else {
+  //     axios
+  //       .get("https://exampletravelapi.datacakra.com/sanctum/csrf-cookie")
+  //       .then((res) => {
+  //         console.log(res);
+  //         axios
+  //           .post(
+  //             "https://exampletravelapi.datacakra.com/api/login",
+  //             {
+  //               email: email,
+  //               password: password,
+  //             },
+  //             {
+  //               headers: {
+  //                 Accept: "application/json, text/plain, /",
+  //                 "Content-Type": "multipart/form-data",
+  //               },
+  //             }
+  //           )
+  //           .then((res) => {
+  //             localStorage.setItem("token", res.data.token);
+  //             localStorage.setItem("is-login", true);
+  //             window.location.href = "/";
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //             setMessage("*email/password salah!");
+  //             localStorage.setItem("is-login", true);
+  //           });
+  //       });
+  //   }
+  // };
 
   return (
     <div className="font-roboto w-screen h-screen flex justify-center items-center">
@@ -86,16 +107,26 @@ const Login = () => {
               />
             </div>
           </div>
-          <Button moreStyles="bg-[#e4892c] text-white" title="Login" onClick={HandleLogin} />
+          <Button
+            moreStyles="bg-[#e4892c] text-white"
+            title="Login"
+            onClick={HandleLogin}
+          />
         </div>
         <div className="mt-1">
           <label className="text-red-600 text-sm">{message}</label>
         </div>
         <div className="text-sm flex justify-center mt-3 gap-1">
           <label>Don't have an account yet?</label>
-          <a className="text-[#e4892c] hover:text-[#bf7324]" href="/register">
+          <span
+            className="text-[#e4892c] hover:text-[#bf7324] cursor-pointer"
+            onClick={() => {
+              dispatch(moveTo("register"));
+              window.history.replaceState(null, null, "/register");
+            }}
+          >
             Register
-          </a>
+          </span>
         </div>
       </div>
     </div>

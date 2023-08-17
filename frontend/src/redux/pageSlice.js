@@ -15,7 +15,6 @@ export const pageSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { moveTo } = pageSlice.actions;
 
 export default pageSlice.reducer;
