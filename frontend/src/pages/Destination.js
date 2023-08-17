@@ -213,7 +213,8 @@ const Destination = () => {
             <h1 className="text-lg font-semibold mb-8 underline">Reviews</h1>
             <div className="grid gap-4">{reviewArr}</div>
           </div>
-          {localStorage.getItem("role") !== "superadmin" ? (
+          {localStorage.getItem("role") === "admin" ||
+          localStorage.getItem("role") === "user" ? (
             <div className="grid gap-2">
               <h3>Add Review</h3>
               <div className="flex justify-center gap-1">
@@ -351,7 +352,7 @@ const Destination = () => {
         ""
       )}
       {currentDestination === undefined ? (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           {destinationArr}
         </div>
       ) : (
