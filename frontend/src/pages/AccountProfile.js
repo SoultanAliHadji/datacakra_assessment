@@ -72,7 +72,7 @@ const AccountSetting = () => {
   return (
     <div className="container px-6 md:px-0 xl:px-20 mx-auto my-10 grid gap-14">
       <div className="flex justify-center">
-        <div className="border rounded-lg bg-white shadow-md p-5 w-2/5">
+        <div className="border rounded-lg bg-white shadow-md p-5 w-max md:w-2/5">
           <h1 className="text-center text-xl font-semibold mb-10 underline">
             Profile
           </h1>
@@ -80,7 +80,7 @@ const AccountSetting = () => {
             <label>Name: </label>
             <input
               type="text"
-              placeholder={localStorage.getItem("username")}
+              placeholder={localStorage.getItem("name")}
               disabled
             />
           </div>
@@ -94,14 +94,18 @@ const AccountSetting = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <div className="border rounded-lg bg-white shadow-md p-5 w-full">
-          <h1 className="text-center text-xl font-semibold mb-10 underline">
-            User's Reviews
-          </h1>
-          <div className="grid gap-4">{reviewArr}</div>
+      {localStorage.getItem("role") !== "superadmin" ? (
+        <div className="flex justify-center">
+          <div className="border rounded-lg bg-white shadow-md p-5 w-full">
+            <h1 className="text-center text-xl font-semibold mb-10 underline">
+              User's Reviews
+            </h1>
+            <div className="grid gap-4">{reviewArr}</div>
+          </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
