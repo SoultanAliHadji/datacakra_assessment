@@ -152,7 +152,7 @@ const Destination = () => {
     <div className="container px-6 md:px-0 xl:px-20 mx-auto my-7">
       {currentDestination !== undefined ? (
         <button
-          className="flex justify-start bg-[#e4892c] text-white w-max rounded px-4 py-1"
+          className="flex justify-start bg-[#e4892c] text-white w-max rounded px-4 py-1 mb-10"
           onClick={() => {
             setCurrentDestination();
           }}
